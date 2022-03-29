@@ -22,4 +22,9 @@
     <ProjectReference Include="..\DevIO.Data\DevIO.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\App\demo-webapi\src\assets\" />
+    <Folder Include="wwwroot\imagens\" />
+  </ItemGroup>
+
 </Project>
