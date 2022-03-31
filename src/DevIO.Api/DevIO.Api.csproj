@@ -7,8 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\imagens\**" />
+    <Content Remove="wwwroot\imagens\**" />
+    <EmbeddedResource Remove="wwwroot\imagens\**" />
+    <None Remove="wwwroot\imagens\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -24,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\App\demo-webapi\src\assets\" />
-    <Folder Include="wwwroot\imagens\" />
   </ItemGroup>
 
 </Project>
