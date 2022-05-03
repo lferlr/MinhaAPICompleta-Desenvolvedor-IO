@@ -9,6 +9,13 @@
                 options.AddPolicy("Development",
                         builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+
+                options.AddPolicy("Production",
+                        builder => builder.WithMethods("GET")
+                        .WithOrigins("http://desenvolvedor.io")
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
                         .AllowAnyHeader());
             });
 
@@ -17,8 +24,6 @@
 
         public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app)
         {
-            app.UseCors("Development");
-
             app.UseHttpsRedirection();
 
             return app;

@@ -32,6 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    app.UseCors("Production");
+    app.UseHsts();
+}
 
 app.UseAuthorization();
 
