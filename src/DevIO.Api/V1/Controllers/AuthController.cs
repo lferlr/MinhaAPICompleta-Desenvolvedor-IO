@@ -1,4 +1,5 @@
-﻿using DevIO.Api.Extensions;
+﻿using DevIO.Api.Controllers;
+using DevIO.Api.Extensions;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Intefaces;
 using Microsoft.AspNetCore.Cors;
@@ -10,9 +11,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace DevIO.Api.Controllers
+namespace DevIO.Api.V1.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -53,7 +55,7 @@ namespace DevIO.Api.Controllers
             {
                 NotificarErro(error.Description);
             }
-            
+
             return CustomReponse(registerUser);
         }
 
@@ -68,7 +70,7 @@ namespace DevIO.Api.Controllers
             {
                 return CustomReponse(await GerarJwt(loginUser.Email));
             }
-            
+
             if (result.IsLockedOut)
             {
                 NotificarErro("Usuário temporariamente bloqueado por tentativas inválidas");

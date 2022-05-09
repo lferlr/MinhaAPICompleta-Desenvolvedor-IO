@@ -1,21 +1,23 @@
 ﻿using AutoMapper;
+using DevIO.Api.Controllers;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Intefaces;
 using DevIO.Business.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevIO.Api.Controllers
+namespace DevIO.Api.V1.Controllers
 {
-    [Route("api/produtos")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/produtos")]
     public class ProdutosController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public ProdutosController(INotificador notificador, 
-                                  IProdutoRepository produtoRepository, 
-                                  IProdutoService produtoService, 
+        public ProdutosController(INotificador notificador,
+                                  IProdutoRepository produtoRepository,
+                                  IProdutoService produtoService,
                                   IMapper mapper,
                                   IUser user) : base(notificador, user)
         {
@@ -69,7 +71,7 @@ namespace DevIO.Api.Controllers
 
             var produtoAtualizacao = await ObterProduto(id);
             produtoViewModel.Imagem = produtoAtualizacao.Imagem;
-            
+
             if (!ModelState.IsValid) return CustomReponse(ModelState);
 
             if (produtoViewModel.ImagemUpload != null)
@@ -124,7 +126,7 @@ namespace DevIO.Api.Controllers
         public async Task<ActionResult<ProdutoViewModel>> Excluir(Guid id)
         {
             var produto = await ObterProduto(id);
-            
+
             if (produto == null) return NotFound();
 
             await _produtoService.Remover(id);
@@ -141,7 +143,7 @@ namespace DevIO.Api.Controllers
             }
 
             var imageDataByteArray = Convert.FromBase64String(arquivo);
-            
+
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/app/demo-webapi/src/assets", imgNome);
 
             if (System.IO.File.Exists(filePath))
