@@ -1,5 +1,6 @@
 ﻿using DevIO.Api.Controllers;
 using DevIO.Business.Intefaces;
+using Elmah.Io.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevIO.Api.V1.Controllers
@@ -18,6 +19,17 @@ namespace DevIO.Api.V1.Controllers
         [HttpGet]
         public string Valor()
         {
+            try
+            {
+                var i = 0;
+                var result = 42 / i;
+
+            }
+            catch (DivideByZeroException e)
+            {
+                e.Ship(HttpContext);
+            }
+
             _logger.LogTrace("Log de Trace");
             _logger.LogDebug("Log de Debug");
             _logger.LogInformation("Log de Informação");

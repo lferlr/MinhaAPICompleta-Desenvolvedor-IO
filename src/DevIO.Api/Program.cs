@@ -1,4 +1,5 @@
 using DevIO.Api.Configuration;
+using DevIO.Api.Extensions;
 using DevIO.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.WebApiConfig();
-
+builder.Services.AddLoggingConfiguration();
 builder.Services.ResolveDependencies();
 
 // Configure
@@ -39,11 +40,9 @@ else
 }
 
 app.UseAuthorization();
-
 app.UseAuthentication();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
-
 app.UseMvcConfiguration();
-
+app.UseLoggingConfiguration();
 app.Run();
