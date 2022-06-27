@@ -1,6 +1,8 @@
 using DevIO.Api.Configuration;
 using DevIO.Api.Extensions;
 using DevIO.Data.Context;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,11 +22,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.WebApiConfig();
-builder.Services.AddLoggingConfiguration();
+builder.Services.AddLoggingConfiguration(builder.Configuration);
+
 builder.Services.ResolveDependencies();
 
 // Configure
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,8 +43,11 @@ else
 
 app.UseAuthorization();
 app.UseAuthentication();
+
 app.UseMiddleware<ExceptionMiddleware>();
+
 app.MapControllers();
 app.UseMvcConfiguration();
 app.UseLoggingConfiguration();
+
 app.Run();
